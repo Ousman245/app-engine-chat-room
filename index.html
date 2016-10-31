@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <style>
   * {
+    color: white;
+    font: bold;
     margin:0;
     border: none;
     outline: none;
     font-family: 'Helvetica';
     font-size: 20px;
     font-weight: bold;
-    background-color: green;
-  }
 
+  }
+body{
+  background-image: url(https://upload.wikimedia.org/wikipedia/en/thumb/d/d8/Pumpkin2007.jpg/220px-Pumpkin2007.jpg);
+}
+#button{
+  background-color: orange;
+}
   #chat {
     padding: 0 5px;
     height: 100vh;
@@ -28,7 +35,9 @@
 </style>
 
 <div id="chat">
-  <div id="messages"></div>
+  <div id="messages">
+    <button id= "button">submit</button>
+  </div>
   <input disabled placeholder="Connecting..." id="newmessage"></input>
 </div>
 
@@ -72,4 +81,13 @@ newmessage.on('keypress', function(e) {
 newmessage.on('blur', function(e) {
   newmessage.focus();
 });
+
+$('#button').click(function()
+  {
+    $.post('/send', {data: newmessage.val()});
+    newmessage.val('');
+  }
+);
+
+
 </script>
