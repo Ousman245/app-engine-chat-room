@@ -61,11 +61,15 @@ body{
       newmessage.focus();
     },
     'onmessage': function(m) {
+      var msg= m.data;
       // Blindly append the message to the end of the element.
-      messages.append('<p class="message">' + m.data + '</p>');
+      msg= msg.replace('/shruggie', '¯\\_(ツ)_/¯');
+      msg= msg.replace('green', '<span style="color: green">green</span> ')
+      messages.append('<p class="message">' + msg + '</p>');
     },
     'onerror': function() {}, // No-op.
     'onclose': function() {}, // No-op.
+
   };
 channel.open(handler);
 
@@ -74,7 +78,7 @@ newmessage.on('keypress', function(e) {
   if (e.key === 'Enter' && newmessage.val() !== '') {
     $.post('/send', {data: newmessage.val()});
     newmessage.val('');
-  };
+  }
 });
 
 // Force all focus to the input box.
